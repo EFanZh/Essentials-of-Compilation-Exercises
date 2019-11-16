@@ -11,7 +11,7 @@ jobs:
     pool:
         vmImage: $(vmImage)
     steps:
-      - script: sudo add-apt-repository ppa:plt/racket && sudo apt-get install --no-install-recommends -y racket
+      - script: sudo add-apt-repository ppa:plt/racket && sudo apt-get update && sudo apt-get install --no-install-recommends -y racket
         displayName: Install Racket (Linux)
         condition: eq(variables['Agent.OS'], 'Linux')
       - script: brew cask install racket
