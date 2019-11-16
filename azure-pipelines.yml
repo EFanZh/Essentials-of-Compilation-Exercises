@@ -24,13 +24,14 @@ jobs:
         displayName: Install coverage tools
       - script: raco cover -f html -f cobertura .
         displayName: Run tests with coverage
-      - task: PublishTestResults@2
-        displayName: Publish test results
+      - task: PublishCodeCoverageResults@1
+        displayName: Publish coverage result
         condition: eq(variables['Agent.OS'], 'Linux')
         inputs:
-            testResultsFiles: coverage/cobertura.xml
+            codeCoverageTool: Cobertura
+            summaryFileLocation: coverage/cobertura.xml
       - task: PublishBuildArtifacts@1
-        displayName: Publish HTML coverage report
+        displayName: Archive HTML coverage report
         condition: eq(variables['Agent.OS'], 'Linux')
         inputs:
             pathtoPublish: coverage
