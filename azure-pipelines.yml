@@ -11,16 +11,16 @@ jobs:
     pool:
         vmImage: $(vmImage)
     steps:
-      - script: sudo add-apt-repository plt/racket && apt-get install --no-install-recommends -y racket
+      - script: sudo add-apt-repository ppa:plt/racket && sudo apt-get install --no-install-recommends -y racket
         displayName: Install Racket (Linux)
         condition: eq(variables['Agent.OS'], 'Linux')
       - script: brew cask install racket
         displayName: Install Racket (macOS)
         condition: eq(variables['Agent.OS'], 'Darwin')
-      - script: cinst racket
+      - script: "cinst racket && echo ##vso[task.prependpath]%ProgramFiles%\\Racket"
         displayName: Install Racket (Windows)
         condition: eq(variables['Agent.OS'], 'Windows_NT')
-      - script: raco install --auto cover-cobertura
+      - script: raco pkg install --auto cover-cobertura
         displayName: Install coverage tools
       - script: raco cover -f html -f cobertura .
         displayName: Run tests with coverage
