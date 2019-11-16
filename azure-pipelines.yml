@@ -30,6 +30,7 @@ jobs:
         inputs:
             codeCoverageTool: Cobertura
             summaryFileLocation: coverage/cobertura.xml
+            reportDirectory: coverage
       - task: PublishBuildArtifacts@1
         displayName: Archive HTML coverage report
         condition: eq(variables['Agent.OS'], 'Linux')
