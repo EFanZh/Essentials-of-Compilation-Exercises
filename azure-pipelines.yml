@@ -26,12 +26,12 @@ jobs:
         displayName: Run tests with coverage
       - task: PublishTestResults@2
         displayName: Publish test results
-        condition: eq(variables['Agent.OS'], 'Darwin')
+        condition: eq(variables['Agent.OS'], 'Linux')
         inputs:
             testResultsFiles: coverage/cobertura.xml
       - task: PublishBuildArtifacts@1
         displayName: Publish HTML coverage report
-        condition: eq(variables['Agent.OS'], 'Darwin')
+        condition: eq(variables['Agent.OS'], 'Linux')
         inputs:
             pathtoPublish: coverage
             artifactName: coverage-report
