@@ -3,7 +3,7 @@
 (define next-variable (make-hasheq))
 
 (define (unique-variable base)
-  (let ([id (void)])
+  (let ([id #f])
     (hash-update! next-variable
                   base
                   (λ (next-id)
@@ -11,6 +11,9 @@
                     (add1 next-id))
                   1)
     (string->symbol (format "~a.~a" base id))))
+
+(define (reset-counter)
+  (hash-clear! next-variable))
 
 (define (uniquify-exp alist)
   (lambda (e)
@@ -30,7 +33,7 @@
       [`(program ,info ,e)
        `(program ,info ,((uniquify-exp alist) e))])))
 
-(provide uniquify)
+(provide reset-counter uniquify)
 
 (module+ test
   (require rackunit)
@@ -60,6 +63,6 @@
   (test-case
    "uniquify"
    (for ([test-case uniquify-test-cases])
-     (hash-clear! next-variable) ; Reset counter.
+     (reset-counter)
 
      (check-equal? ((uniquify '()) (car test-case)) (cdr test-case)))))
