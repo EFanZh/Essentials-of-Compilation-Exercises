@@ -40,7 +40,7 @@
   (require rackunit)
 
   (define uniquify-test-cases
-    `([(program ()
+    '([(program ()
                 (let ([x 32])
                   (+ (let ([x 10])
                        x)
