@@ -12,7 +12,7 @@
 
 (define (explicate-control e)
   (match e
-    [`(program ,info ,e) `(program ,info ((start ,(explicate-control-tail e))))]))
+    [`(program ,info ,e) `(program ,info ((start . ,(explicate-control-tail e))))]))
 
 (provide explicate-control)
 
@@ -27,10 +27,10 @@
                   y))
        .
        (program ()
-                ((start (seq (assign x.1 20)
-                             (seq (assign x.2 22)
-                                  (seq (assign y (+ x.1 x.2))
-                                       (return y)))))))]))
+                ((start . (seq (assign x.1 20)
+                               (seq (assign x.2 22)
+                                    (seq (assign y (+ x.1 x.2))
+                                         (return y)))))))]))
 
   (test-case
    "explicate-control"
