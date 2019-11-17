@@ -54,7 +54,7 @@
       [(+ (+ 3 (read)) (read)) . (+ 3 (+ (read) (read)))]
       [(+ (read) (+ 2 (read))) . (+ 2 (+ (read) (read)))]
       [(+ (read) (read)) . (+ (read) (read))]))
-  
+
   (test-case
    "pe-arith"
    (for ([test-case normal-test-cases])
