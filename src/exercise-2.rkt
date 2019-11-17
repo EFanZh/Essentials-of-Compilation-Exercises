@@ -1,9 +1,11 @@
 #lang racket
 
+(require racket/undefined)
+
 (define next-variable (make-hasheq))
 
 (define (unique-variable base)
-  (let ([id #f])
+  (let ([id undefined])
     (hash-update! next-variable
                   base
                   (λ (next-id)
@@ -30,10 +32,9 @@
 (define (uniquify alist)
   (lambda (e)
     (match e
-      [`(program ,info ,e)
-       `(program ,info ,((uniquify-exp alist) e))])))
+      [`(program ,info ,e) `(program ,info ,((uniquify-exp alist) e))])))
 
-(provide reset-counter uniquify)
+(provide reset-counter unique-variable uniquify)
 
 (module+ test
   (require rackunit)
